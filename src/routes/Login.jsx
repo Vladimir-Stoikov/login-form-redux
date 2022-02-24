@@ -43,6 +43,9 @@ const AdviceSection = styled.section`
   display: flex;
   flex-direction: row;
   margin: 0 0 10px 0;
+  a {
+    text-decoration: none;
+  }
 `
 
 const ButtonVisibility = styled.button`
@@ -82,7 +85,7 @@ export default function Login() {
           <VisibilityOffIcon style={{display: visibility ? 'none' : 'block'}}/>
         </ButtonVisibility>
       <AdviceSection>
-        <Help margin="3px 15px 0 0" name='Forgot password?'/>
+        <Link to='/Recover'><Help margin="0" name='Forgot password?'/></Link>
       </AdviceSection>
       <Button name='Sign in'/>
     </LoginForm>

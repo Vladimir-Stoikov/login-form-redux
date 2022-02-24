@@ -46,7 +46,7 @@ export default function Input({label, id, type}) {
   }
 
   return <InputSection>
-    <InputField type={type} name='field' id={`input-${id}`} placeholder=' ' autoComplete="off"/>
+    <InputField type={type} name='field' id={`input-${id}`} placeholder=' ' autoComplete="off" required/>
     <Label onClick={inputFocus} htmlFor='field'>{label}</Label>
   </InputSection>
     
