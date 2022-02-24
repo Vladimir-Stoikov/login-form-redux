@@ -9,8 +9,16 @@ const ButtonSt = styled.button`
   color: white;
   background: linear-gradient(45deg, #ec96ec, #f18098);
   padding: 0.7rem;
+  margin: ${({margin}) => margin ? margin : '0' };
+  user-select: none;
+  &:hover {
+    background: linear-gradient(45deg, #ffa3ff, #ff88a2);
+  }
+  &:active {
+    transform: scale(0.98);
+  }
 `
 
-export default function Button({name}) {
-  return <ButtonSt>{name}</ButtonSt>
+export default function Button({name, margin}) {
+  return <ButtonSt margin={margin}>{name}</ButtonSt>
 }

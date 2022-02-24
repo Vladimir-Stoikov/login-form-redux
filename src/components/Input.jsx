@@ -12,6 +12,7 @@ outline: none;
 `
 
 const Label = styled.label`
+  cursor: text;
   user-select: none;
   background-color: white;
   font-size: 1.2rem;
@@ -32,20 +33,20 @@ const InputSection = styled.section`
     background: linear-gradient(0deg, #ffffff 50%, #f5f5f5 80%);
     padding: 0 0.2rem;
     font-size: 0.8rem;
-    top: -0.35rem;
+    top: -0.45rem;
     left: 0.5rem;
 } 
 `
 
-export default function Input({label}) {
+export default function Input({label, id, type}) {
 
   const inputFocus = () => {
-    const inputDom = document.getElementById('input-id');
+    const inputDom = document.getElementById(`input-${id}`);
     inputDom.focus();
   }
 
   return <InputSection>
-    <InputField type='text' name='field' id='input-id' placeholder=' '/>
+    <InputField type={type} name='field' id={`input-${id}`} placeholder=' ' autoComplete="off"/>
     <Label onClick={inputFocus} htmlFor='field'>{label}</Label>
   </InputSection>
     
