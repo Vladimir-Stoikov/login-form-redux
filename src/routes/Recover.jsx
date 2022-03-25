@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -6,6 +8,9 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Help from '../components/Help'
+import Title from '../components/Title';
+import Errors from '../components/Errors';
+
 
 
 const RecoverForm = styled.form`
@@ -20,17 +25,12 @@ const RecoverForm = styled.form`
   width: 320px;
   height: 250px;
   border-radius: 30px;
-  h1 {
-    color: #ff88a2;
-    font-family: inherit;
-    margin-bottom: 30px;
-  }
 `
 
 const BackArrow = styled.div`
   color: #ff88a2;
   position: absolute;
-  top: 11.7%;
+  top: 30px;
   left: 4.5%;
   &:hover{
     color: #fa6082;
@@ -64,15 +64,30 @@ const ButtonVisibility = styled.button`
 
 export default function Recover() {
 
+  const [email, setEmail] = useState('')
+
+  const data = useSelector(state => state.base.data);
+
+  function checkEmail() {
+    data.forEach(user => {
+      if(email === user.emailDb) {
+      console.log('Successfully recover')
+      } else {
+      console.log('Issue recover')
+      }
+    });
+  }
+
+
   return (
     <RecoverForm>
       <Link to='/Login'><BackArrow><ArrowBackIosNewIcon /></BackArrow></Link> 
-      <h1>Recover data</h1>
-      <Input label='Email' id='1' type="email"/>
+      <Title title='Recover data'/>
+      <Input value={email} setValue={setEmail} label='Email' id='1' type="email"/>
       <AdviceSection>
         <Link to='/Recover'><Help margin="0" name='Enter your Email'/></Link>
       </AdviceSection>
-      <Button name='Accept'/>
+      <Button name='Accept' func={checkEmail}/>
     </RecoverForm>
   )
 }

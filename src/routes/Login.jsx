@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -8,11 +10,15 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Help from '../components/Help'
+import Title from '../components/Title';
+import Errors from '../components/Errors';
+
 
 
 const LoginForm = styled.form`
   position: relative;
   margin: 45vh auto;
+  padding: 15px;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -20,19 +26,14 @@ const LoginForm = styled.form`
   align-items: center;
   background: linear-gradient(45deg, #eee, #fff);
   width: 320px;
-  height: 320px;
+  height: auto;
   border-radius: 30px;
-  h1 {
-    color: #ff88a2;
-    font-family: inherit;
-    margin-bottom: 30px;
-  }
 `
 
 const BackArrow = styled.div`
   color: #ff88a2;
   position: absolute;
-  top: 10%;
+  top: 22px;
   left: 8%;
   &:hover{
     color: #fa6082;
@@ -48,10 +49,14 @@ const AdviceSection = styled.section`
   }
 `
 
+const PasswordSection = styled.section`
+  position: relative;
+`
+
 const ButtonVisibility = styled.button`
   position: absolute;
-  top: 51%;
-  right: 12%;
+  top: 11.5%;
+  right: 2%;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -66,28 +71,49 @@ const ButtonVisibility = styled.button`
 
 export default function Login() {
 
+  const data = useSelector(state => state.base.data);
+  const navigate = useNavigate();
+
   const [visibility, setVisibility] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null)
 
   function changeVisibility(e) {
     e.preventDefault();
     setVisibility(prev => !prev);
   }
 
+  function checkUser() {
+    data.forEach(user => {
+      let { usernameDb, passwordDb } = user;
+      if(username === usernameDb && password === passwordDb) {
+      console.log('Successfully login in')
+      navigate("/Profile");
+      } else {
+        setError(['Wrong Username or password']);
+      }
+    });
+  }
+
 
   return (
     <LoginForm>
       <Link to='/'><BackArrow><ArrowBackIosNewIcon /></BackArrow></Link> 
-      <h1>Login</h1>
-      <Input label='Username' id='1' type="text"/>
-      <Input label='Password' id='2' type={visibility ? 'password' : 'text'}/>
+      <Title title='Login'/>
+      <Input value={username} setValue={setUsername} label='Username' id='1' type="text"/>
+      <PasswordSection>
+      <Input value={password} setValue={setPassword} label='Password' id='2' type={visibility ? 'password' : 'text'}/>
       <ButtonVisibility onClick={changeVisibility}>
           <VisibilityIcon style={{display: visibility ? 'block' : 'none'}}/>
           <VisibilityOffIcon style={{display: visibility ? 'none' : 'block'}}/>
-        </ButtonVisibility>
+      </ButtonVisibility>
+      </PasswordSection>
       <AdviceSection>
         <Link to='/Recover'><Help margin="0" name='Forgot password?'/></Link>
       </AdviceSection>
-      <Button name='Sign in'/>
+      {error === null? null : <Errors errors={error}/>}
+      <Button name='Sign in' func={checkUser} type='submit'/>
     </LoginForm>
   )
 }

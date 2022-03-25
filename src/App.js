@@ -2,8 +2,9 @@ import { Routes, Route } from 'react-router-dom';
 
 import Login from './routes/Login';
 import Menu from './routes/Menu';
-import Register from './routes/Register';
+import SignUp from './routes/SignUp';
 import Recover from './routes/Recover';
+import Profile from './routes/Profile';
 
 export default function App() {
   return (
@@ -11,8 +12,9 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Menu />} />
         <Route path='/Login' element={<Login />} />
-        <Route path='/Register' element={<Register />} />
+        <Route path='/SignUp' element={<SignUp />} />
         <Route path='/Recover' element={<Recover />} />
+        <Route path='/Profile' element={<Profile />} />
       </Routes>
     </div>
   );

@@ -6,6 +6,7 @@ const InputField = styled.input`
 border: solid 2px #aaa;
 font-size: 1.3rem;
 height: 2.5rem;
+width: 100%;
 border-radius: 7px;
 padding: 0 0.3rem;
 outline: none;
@@ -27,6 +28,7 @@ const Label = styled.label`
 
 const InputSection = styled.section`
   position: relative;
+  width: 270px;
   text-align: center;
   margin-bottom: 24px;
   input:focus + label, input:not(:placeholder-shown) + label {
@@ -38,7 +40,7 @@ const InputSection = styled.section`
 } 
 `
 
-export default function Input({label, id, type}) {
+export default function Input({value, setValue, label, id, type}) {
 
   const inputFocus = () => {
     const inputDom = document.getElementById(`input-${id}`);
@@ -46,7 +48,7 @@ export default function Input({label, id, type}) {
   }
 
   return <InputSection>
-    <InputField type={type} name='field' id={`input-${id}`} placeholder=' ' autoComplete="off" required/>
+    <InputField value={value} onChange={e => setValue(e.target.value)} type={type} name='field' id={`input-${id}`} placeholder=' ' autoComplete="off" required/>
     <Label onClick={inputFocus} htmlFor='field'>{label}</Label>
   </InputSection>
     

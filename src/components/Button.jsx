@@ -19,6 +19,6 @@ const ButtonSt = styled.button`
   }
 `
 
-export default function Button({name, margin}) {
-  return <ButtonSt margin={margin}>{name}</ButtonSt>
+export default function Button({name, margin, func, type}) {
+  return <ButtonSt margin={margin} onClick={func} type={type}>{name}</ButtonSt>
 }
