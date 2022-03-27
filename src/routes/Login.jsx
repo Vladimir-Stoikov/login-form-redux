@@ -88,7 +88,7 @@ export default function Login() {
     data.forEach(user => {
       let { usernameDb, passwordDb } = user;
       if(username === usernameDb && password === passwordDb) {
-      console.log('Successfully login in')
+      console.log('Successfully login in');
       navigate("/Profile");
       } else {
         setError(['Wrong Username or password']);

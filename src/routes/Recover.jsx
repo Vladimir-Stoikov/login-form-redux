@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom'
+
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -64,16 +65,17 @@ const ButtonVisibility = styled.button`
 
 export default function Recover() {
 
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('');
 
   const data = useSelector(state => state.base.data);
+  const navigate = useNavigate();
 
   function checkEmail() {
     data.forEach(user => {
       if(email === user.emailDb) {
-      console.log('Successfully recover')
+      console.log('Successfully recover');
       } else {
-      console.log('Issue recover')
+      console.log('Issue recover');
       }
     });
   }

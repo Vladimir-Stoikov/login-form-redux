@@ -81,15 +81,29 @@ export default function SignUp() {
   const [Username, setUsername] = useState('UCHI');
   const [Password, setPassword] = useState('1234567q');
   const [Email, setEmail] = useState('UCHI@email.com');
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
 
   function changeVisibility(e) {
     e.preventDefault();
     setVisibility(prev => !prev);
   }
+
+  function updateDate() {
+    console.log(errors);
+    if(errors.length === 0) {
+      console.log(errors);
+      dispatch(addData(
+        { 
+          usernameDb: Username, 
+          passwordDb: Password,
+          emailDb: Email
+        }
+      ));
+    }
+  }
   
 
-  function createNewData(e) {
+  function checkNewData(e) {
     setErrors([]);
     e.preventDefault();
     if (!usernameCheck.test(Username)) {
@@ -110,23 +124,21 @@ export default function SignUp() {
         return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
       });
     } 
-    checkDB.forEach(({usernameDb}) => {
+    checkDB.forEach(({usernameDb, emailDb}) => {
       if(usernameDb === Username) {
         setErrors(prev => {
-          let checkHave = 'This user is already sign up';
+          let checkHave = 'This username is already in use';
+          return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
+        });
+      }
+      if(emailDb === Email) {
+        setErrors(prev => {
+          let checkHave = 'This email is already in use';
           return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
         });
       }
     });
-  
-    if(errors.length === 0) {
-         dispatch(addData(
-          { 
-            usernameDb: Username, 
-            passwordDb: Password,
-            emailDb: Email
-          }));
-    }
+    updateDate();
   }
 
 
@@ -147,7 +159,7 @@ export default function SignUp() {
         <Link to='/Login'><Help margin="0" name='Have an account already? Login'/></Link>
       </AdviceSection>
       {errors.length > 0 ? <Errors errors={errors}></Errors> : null}
-      <Button name='Sign Up' func={createNewData}/>
+      <Button name='Sign Up' func={checkNewData}/>
     </SignUpForm>
   )
 }
