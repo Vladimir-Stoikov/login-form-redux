@@ -6,6 +6,7 @@ import SignUp from './routes/SignUp';
 import Recover from './routes/Recover';
 import Profile from './routes/Profile';
 import ChangePassword from './routes/ChangePassword';
+import Successful from './routes/Successful';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path='/Recover' element={<Recover />} />
         <Route path='/Profile' element={<Profile />} />
         <Route path='/ChangePassword' element={<ChangePassword />} />
+        <Route path='/Successful' element={<Successful />} />
       </Routes>
     </div>
   );

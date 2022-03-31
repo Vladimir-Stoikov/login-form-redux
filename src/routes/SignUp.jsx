@@ -55,7 +55,7 @@ const PasswordSection = styled.section`
 const ButtonVisibility = styled.button`
   position: absolute;
   top: 11.5%;
-  right: 2%;
+  right: 3%;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -78,9 +78,9 @@ export default function SignUp() {
   const checkDB = useSelector(state => state.base.data);
 
   const [visibility, setVisibility] = useState(true);
-  const [Username, setUsername] = useState('UCHI');
-  const [Password, setPassword] = useState('1234567q');
-  const [Email, setEmail] = useState('UCHI@email.com');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [errors, setErrors] = useState([]);
 
   function changeVisibility(e) {
@@ -89,76 +89,69 @@ export default function SignUp() {
   }
 
   function updateDate() {
-    console.log(errors);
-    if(errors.length === 0) {
-      console.log(errors);
       dispatch(addData(
         { 
-          usernameDb: Username, 
-          passwordDb: Password,
-          emailDb: Email
+          usernameDb: username, 
+          passwordDb: password,
+          emailDb: email
         }
       ));
-    }
   }
   
 
   function checkNewData(e) {
+     e.preventDefault();
+
+    let isSatisfied = true;
     setErrors([]);
-    e.preventDefault();
-    if (!usernameCheck.test(Username)) {
-      setErrors(prev => {
-        let checkHave = 'Wrong Username';
-          return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
-      });
+   
+    if (!usernameCheck.test(username)) {
+      isSatisfied = false;
+      setErrors(prev => [...prev, 'Wrong Username']);
     }
-    if (!passwordCheck.test(Password)) {
-      setErrors(prev => {
-        let checkHave = 'Wrong Password';
-          return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
-        });
+    if (!passwordCheck.test(password)) {
+      isSatisfied = false;
+      setErrors(prev => [...prev, 'Wrong Password']);
     }
-    if (!emailCheck.test(Email)) {
-      setErrors(prev => {
-        let checkHave = 'Email requirements is not satisfied';
-        return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
-      });
+    if (!emailCheck.test(email)) {
+      isSatisfied = false;
+      setErrors(prev => [...prev, 'Email requirements is not satisfied']);
     } 
     checkDB.forEach(({usernameDb, emailDb}) => {
-      if(usernameDb === Username) {
-        setErrors(prev => {
-          let checkHave = 'This username is already in use';
-          return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
-        });
+      if(usernameDb === username) {
+        isSatisfied = false;
+        setErrors(prev => [...prev, 'This username is already in use']);
       }
-      if(emailDb === Email) {
-        setErrors(prev => {
-          let checkHave = 'This email is already in use';
-          return (!prev.includes(checkHave) ? [...prev, checkHave] : prev);
-        });
+      if(emailDb === email) {
+        isSatisfied = false;
+        setErrors(prev => [...prev, 'This email is already in use']);
       }
     });
-    updateDate();
+    if(isSatisfied) updateDate();
   }
 
 
   return (
     <SignUpForm>
-      <Link to='/'><BackArrow><ArrowBackIosNewIcon /></BackArrow></Link> 
+      <Link to='/'>
+        <BackArrow>
+          <ArrowBackIosNewIcon />
+        </BackArrow>
+      </Link> 
       <Title title='Sign Up'/>
-      <Input value={Username} setValue={setUsername} label='Username' id='1' type="text"/>
+      <Input value={username} setValue={setUsername} label='Username' id='1' type="text"/>
       <PasswordSection>
-      <Input value={Password} setValue={setPassword} label='Password' id='2' type={visibility ? 'password' : 'text'}/>
+      <Input value={password} setValue={setPassword} label='Password' id='2' type={visibility ? 'password' : 'text'}/>
       <ButtonVisibility onClick={changeVisibility}>
           <VisibilityIcon style={{display: visibility ? 'block' : 'none'}}/>
           <VisibilityOffIcon style={{display: visibility ? 'none' : 'block'}}/>
       </ButtonVisibility>
       </PasswordSection>
-      <Input value={Email} setValue={setEmail} label='Email' id='3' type='email'/>
+      <Input value={email} setValue={setEmail} label='Email' id='3' type='email'/>
       <AdviceSection>
         <Link to='/Login'><Help margin="0" name='Have an account already? Login'/></Link>
       </AdviceSection>
-      {errors.length > 0 ? <Errors errors={errors}></Errors> : null}
+      {errors.length > 0 ? <Errors errors={errors} /> : null}
       <Button name='Sign Up' func={checkNewData}/>
     </SignUpForm>
   )

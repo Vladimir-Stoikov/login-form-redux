@@ -17,6 +17,7 @@ import Errors from '../components/Errors';
 const RecoverForm = styled.form`
   position: relative;
   margin: 45vh auto;
+  padding: 20px;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -24,58 +25,39 @@ const RecoverForm = styled.form`
   align-items: center;
   background: linear-gradient(45deg, #eee, #fff);
   width: 320px;
-  height: 250px;
+  height: auto;
   border-radius: 30px;
 `
 
 const BackArrow = styled.div`
   color: #ff88a2;
   position: absolute;
-  top: 30px;
+  top: 25px;
   left: 4.5%;
   &:hover{
     color: #fa6082;
   }
 `
 
-const AdviceSection = styled.section`
-  display: flex;
-  flex-direction: row;
-  margin: 0 0 10px 0;
-  a {
-    text-decoration: none;
-  }
-`
 
-const ButtonVisibility = styled.button`
-  position: absolute;
-  top: 51%;
-  right: 12%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  color: #777;
-  &:hover {
-    color: #999;
-  }
-  &:active {
-    transform: scale(0.98);
-  }
-`
+
 
 export default function Recover() {
 
   const [email, setEmail] = useState('');
+  const [error, setError] = useState([])
 
   const data = useSelector(state => state.base.data);
   const navigate = useNavigate();
 
-  function checkEmail() {
+  function checkEmail(e) {
+    e.preventDefault();
+    setError(null);
     data.forEach(user => {
-      if(email === user.emailDb) {
-      console.log('Successfully recover');
+      if(email.toUpperCase() === user.emailDb.toUpperCase()) {
+      navigate('/ChangePassword', { state: email});
       } else {
-      console.log('Issue recover');
+      setError(['Wrong email']);
       }
     });
   }
@@ -83,12 +65,15 @@ export default function Recover() {
 
   return (
     <RecoverForm>
-      <Link to='/Login'><BackArrow><ArrowBackIosNewIcon /></BackArrow></Link> 
+      <Link to='/Login'>
+        <BackArrow>
+          <ArrowBackIosNewIcon />
+        </BackArrow>
+      </Link> 
       <Title title='Recover data'/>
       <Input value={email} setValue={setEmail} label='Email' id='1' type="email"/>
-      <AdviceSection>
-        <Link to='/Recover'><Help margin="0" name='Enter your Email'/></Link>
-      </AdviceSection>
+      <Help margin="0 0 15px 0" name='Enter your Email' hoverOff={true}/>
+      {error.length > 0 ? <Errors errors={error} /> : null}
       <Button name='Accept' func={checkEmail}/>
     </RecoverForm>
   )

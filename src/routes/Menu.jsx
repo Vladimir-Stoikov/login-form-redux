@@ -35,7 +35,7 @@ const MenuSection = styled.section`
 export default function Menu() {
 
   return <MenuSection>
-    <Title title='Sign Up App'/>
+    <Title title='Sign Up App' fontSize='1.6rem'/>
     <HrLine/>
     <Link to="/Login"><Button name='Login' margin='0 0 15px 0'/></Link>
     <Link to="/SignUp"><Button name='Sign Up'/></Link>

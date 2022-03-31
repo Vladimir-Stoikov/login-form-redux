@@ -56,7 +56,7 @@ const PasswordSection = styled.section`
 const ButtonVisibility = styled.button`
   position: absolute;
   top: 11.5%;
-  right: 2%;
+  right: 3%;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -84,11 +84,12 @@ export default function Login() {
     setVisibility(prev => !prev);
   }
 
-  function checkUser() {
+  function checkUser(e) {
+    e.preventDefault();
     data.forEach(user => {
       let { usernameDb, passwordDb } = user;
-      if(username === usernameDb && password === passwordDb) {
-      console.log('Successfully login in');
+      if(username.toUpperCase() === usernameDb.toUpperCase() && password === passwordDb) {
+   
       navigate("/Profile");
       } else {
         setError(['Wrong Username or password']);
@@ -99,7 +100,11 @@ export default function Login() {
 
   return (
     <LoginForm>
-      <Link to='/'><BackArrow><ArrowBackIosNewIcon /></BackArrow></Link> 
+      <Link to='/'>
+        <BackArrow>
+          <ArrowBackIosNewIcon />
+        </BackArrow>
+      </Link> 
       <Title title='Login'/>
       <Input value={username} setValue={setUsername} label='Username' id='1' type="text"/>
       <PasswordSection>

@@ -7,12 +7,12 @@ user-select: none;
 margin: ${({margin}) => margin ? margin : ''};
 color: #777;
 &:hover {
-  color: #ff88a2;
+  ${({ hoverOff}) =>  hoverOff ?  null : 'color: #ff88a2' };
 }
 `
 
-export default function Help({name, margin}) {
-  return <HelpParagraph margin={margin}>
+export default function Help({name, margin, hoverOff}) {
+  return <HelpParagraph margin={margin}  hoverOff={ hoverOff}>
     {name}
   </HelpParagraph>
 }
