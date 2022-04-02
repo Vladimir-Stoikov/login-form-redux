@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
-
-
-import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Help from '../components/Help'
 import Title from '../components/Title';
 import Errors from '../components/Errors';
-
-
 
 const RecoverForm = styled.form`
   position: relative;
@@ -39,9 +36,6 @@ const BackArrow = styled(ArrowBackIosNewIcon)`
   }
 `
 
-
-
-
 export default function Recover() {
 
   const [email, setEmail] = useState('');
@@ -61,7 +55,6 @@ export default function Recover() {
       }
     });
   }
-
 
   return (
     <RecoverForm>

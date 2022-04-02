@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { updateData } from '../store/reducers/dataSlice';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import InfoIcon from '@mui/icons-material/Info';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Help from '../components/Help'
 import Title from '../components/Title';
 import Errors from '../components/Errors';
-import { updateData } from '../store/reducers/dataSlice';
-import styled from 'styled-components';
 
 const ChangePasswordForm = styled.form`
   position: relative;
@@ -34,6 +36,21 @@ const BackArrow = styled(ArrowBackIosNewIcon)`
   top: 35px;
   left: 8%;
   &:hover{
+    color: #fa6082;
+  }
+`
+
+const Info = styled(InfoIcon)`
+  cursor: pointer;
+  color: #ddd;
+  position: absolute;
+  top: 20px;
+  right: 8%;
+  transform: scale(1.3);
+  &:hover{
+    color: #ff88a2;
+  }
+  &:active{
     color: #fa6082;
   }
 `
@@ -78,7 +95,7 @@ export default function ChangePassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState([])
 
-  const passwordCheck = new RegExp('^(?=.*[0-9])(?=.*[a-z]).{8,32}$');
+  const passwordCheck = new RegExp('^(?=.*[0-9])(?=.*[A-Za-z]).{8,32}$');
 
   function changeVisibility(e) {
     e.preventDefault();
@@ -122,9 +139,8 @@ export default function ChangePassword() {
 
   return (
     <ChangePasswordForm>
-      <Link to='/Login'>
-      <BackArrow />
-      </Link> 
+      <BackArrow onClick={() => navigate('/Login')}/>
+      <Info onClick={() => navigate('/Info', {state: '/ChangePassword'})}/>
       <Title title='Create new Password' fontSize='1.8rem'/>
       <Input value={password} setValue={setPassword} label='Password' id='1' type={visibility ? 'password' : 'text'}/>
       <PasswordSection>

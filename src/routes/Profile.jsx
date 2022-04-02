@@ -5,9 +5,6 @@ import styled from 'styled-components'
 import Button from '../components/Button'
 import Title from '../components/Title'
 
-
-
-
 const ProfileSection = styled.section`
   height: 200px;
   width: 300px;

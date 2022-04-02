@@ -23,7 +23,6 @@ const Label = styled.label`
   left: 0.5rem;
   transition-property: top, font-size, padding;
   transition-duration: .2s;
-  
 `
 
 const InputSection = styled.section`
