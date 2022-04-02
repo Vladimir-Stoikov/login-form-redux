@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -71,6 +71,7 @@ const ButtonVisibility = styled.button`
 export default function SignUp() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const usernameCheck = new RegExp('^(?=[a-zA-Z0-9]{4,16}$)');
   const passwordCheck = new RegExp('^(?=.*[0-9])(?=.*[a-z]).{8,32}$');
@@ -96,6 +97,7 @@ export default function SignUp() {
           emailDb: email
         }
       ));
+      navigate('/Successful', { state: 'You created new account' });
   }
   
 

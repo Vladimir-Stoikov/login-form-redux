@@ -86,17 +86,16 @@ export default function ChangePassword() {
   }
 
   function changeData() {
-    const newData = JSON.parse(JSON.stringify(data));;
+    const newData = JSON.parse(JSON.stringify(data));
  
     newData.map(user => {
       if(user.emailDb === state) {
-        console.log('change');
         user.passwordDb = password;
       }
     });
 
     dispatch(updateData(newData));
-    navigate('/Successful');
+    navigate('/Successful', { state: 'You create new password' });
   }
 
   function checkPassword(e) {
@@ -104,7 +103,7 @@ export default function ChangePassword() {
 
     let isSatisfied = true;
     setError([]);
-    let [ oldUser ] = data.filter(user => user.emailDb === state);
+    let [ oldUser ] = data.filter(user => user.emailDb.toUpperCase() === state.toUpperCase());
    
     if(!passwordCheck.test(password) || !passwordCheck.test(confirmPassword)) {
       setError(prev => [...prev, 'Wrong password']);

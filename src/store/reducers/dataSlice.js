@@ -11,14 +11,10 @@ export const dataSlice = createSlice({
     addData: (state, action) => {
       state.data.push(action.payload);
       sessionStorage.setItem('data', JSON.stringify(state.data));
-      console.log('add new data : ');
-      console.log(sessionStorage.getItem('data'));
     },
     updateData: (state, action) => {
       state.data = action.payload;
       sessionStorage.setItem('data', JSON.stringify(state.data));
-      console.log('update new data : ');
-      console.log(sessionStorage.getItem('data'));
     },
   },
 });

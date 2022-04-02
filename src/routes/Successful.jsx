@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Button from '../components/Button'
@@ -24,10 +24,11 @@ const SuccessSection = styled.section`
 export default function Successful() {
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   return <SuccessSection>
-    <Title title='Profile' margin={'8% 0 30px 0'}/>
-    <p>Successfully changing password</p>
+    <Title title='Successful' margin={'8% 0 30px 0'}/>
+    <p>{ state }</p>
     <Button name='Go to Log in' margin='30px 0 0 0' func={() => navigate('/Login')}/>
   </SuccessSection>
     
