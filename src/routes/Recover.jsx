@@ -29,7 +29,7 @@ const RecoverForm = styled.form`
   border-radius: 30px;
 `
 
-const BackArrow = styled.div`
+const BackArrow = styled(ArrowBackIosNewIcon)`
   color: #ff88a2;
   position: absolute;
   top: 25px;
@@ -66,9 +66,7 @@ export default function Recover() {
   return (
     <RecoverForm>
       <Link to='/Login'>
-        <BackArrow>
-          <ArrowBackIosNewIcon />
-        </BackArrow>
+      <BackArrow />
       </Link> 
       <Title title='Recover data'/>
       <Input value={email} setValue={setEmail} label='Email' id='1' type="email"/>

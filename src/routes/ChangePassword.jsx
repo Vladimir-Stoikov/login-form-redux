@@ -28,7 +28,7 @@ const ChangePasswordForm = styled.form`
   border-radius: 30px;
 `
 
-const BackArrow = styled.div`
+const BackArrow = styled(ArrowBackIosNewIcon)`
   color: #ff88a2;
   position: absolute;
   top: 35px;
@@ -89,7 +89,7 @@ export default function ChangePassword() {
     const newData = JSON.parse(JSON.stringify(data));
  
     newData.map(user => {
-      if(user.emailDb === state) {
+      if(user.emailDb.toUpperCase() === state.toUpperCase()) {
         user.passwordDb = password;
       }
     });
@@ -123,9 +123,7 @@ export default function ChangePassword() {
   return (
     <ChangePasswordForm>
       <Link to='/Login'>
-        <BackArrow>
-          <ArrowBackIosNewIcon />
-        </BackArrow>
+      <BackArrow />
       </Link> 
       <Title title='Create new Password' fontSize='1.8rem'/>
       <Input value={password} setValue={setPassword} label='Password' id='1' type={visibility ? 'password' : 'text'}/>

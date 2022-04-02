@@ -30,7 +30,7 @@ const SignUpForm = styled.form`
   border-radius: 30px;
 `
 
-const BackArrow = styled.div`
+const BackArrow = styled(ArrowBackIosNewIcon)`
   color: #ff88a2;
   position: absolute;
   top: 22px;
@@ -136,9 +136,7 @@ export default function SignUp() {
   return (
     <SignUpForm>
       <Link to='/'>
-        <BackArrow>
-          <ArrowBackIosNewIcon />
-        </BackArrow>
+      <BackArrow />
       </Link> 
       <Title title='Sign Up'/>
       <Input value={username} setValue={setUsername} label='Username' id='1' type="text"/>
