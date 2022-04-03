@@ -58,7 +58,9 @@ export default function Info() {
       <li>Must contain at least one English uppercase or lowercase character from A to Z.</li>
       <li>Must contain at least one Base 10 digit (0 through 9)</li>
     </ul>
-    <Button name='Go back' margin='30px 0 0 0' func={() => navigate(state)}/>
+    <Button name='Go back' margin='30px 0 0 0' func={() => {
+      typeof state === 'object' ? navigate(state.path, { state: state.userEmail }) : navigate(state);
+    }}/>
     </> : 
     <Wrong desciption='Wrong page'/>
     }

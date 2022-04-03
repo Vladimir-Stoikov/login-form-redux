@@ -143,7 +143,7 @@ export default function ChangePassword() {
       { state ?
       <>
       <BackArrow onClick={() => navigate('/Login')}/>
-      <Info onClick={() => navigate('/Info', {state: '/ChangePassword'})} color={error.length > 0 ? '#ff5d85' : '#ddd'}/>
+      <Info onClick={() => navigate('/Info', {state: {path: '/ChangePassword', userEmail: state}})} color={error.length > 0 ? '#ff5d85' : '#ddd'}/>
       <Title title='Create new Password' fontSize='1.8rem'/>
       <Input value={password} setValue={setPassword} label='Password' id='1' type={visibility ? 'password' : 'text'}/>
       <PasswordSection>
