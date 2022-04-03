@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Button from '../components/Button'
 import Title from '../components/Title'
+import Wrong from '../components/Wrong'
 
 const SuccessSection = styled.section`
   padding: 15px;
@@ -27,9 +28,13 @@ export default function Successful() {
   const { state } = useLocation();
 
   return <SuccessSection>
+    { state ? <>
     <Title title='Successful' margin={'8% 0 30px 0'}/>
     <p>{ state }</p>
     <Button name='Go to Log in' margin='30px 0 0 0' func={() => navigate('/Login')}/>
+    </> 
+    : <Wrong desciption='Wrong page'/>}
+  
   </SuccessSection>
     
   

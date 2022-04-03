@@ -8,6 +8,7 @@ import Profile from './routes/Profile';
 import ChangePassword from './routes/ChangePassword';
 import Successful from './routes/Successful';
 import Info from './routes/Info';
+import NotFound from './routes/NotFound';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/ChangePassword' element={<ChangePassword />} />
         <Route path='/Successful' element={<Successful />} />
         <Route path='/Info' element={<Info />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   );

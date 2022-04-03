@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Button from '../components/Button'
 import Title from '../components/Title'
+import Wrong from '../components/Wrong'
 
 const InfoSection = styled.section`
   padding: 15px 0;
@@ -38,6 +39,7 @@ export default function Info() {
   const { state } = useLocation();
 
   return <InfoSection>
+    { state ? <>
     <Title title='User Creation Rules' margin='2% 0 10px 0' fontSize='1.6rem'/>
     <HrLine />
     { state === '/SignUp' ? 
@@ -57,6 +59,10 @@ export default function Info() {
       <li>Must contain at least one Base 10 digit (0 through 9)</li>
     </ul>
     <Button name='Go back' margin='30px 0 0 0' func={() => navigate(state)}/>
+    </> : 
+    <Wrong desciption='Wrong page'/>
+    }
+    
   </InfoSection>
     
   

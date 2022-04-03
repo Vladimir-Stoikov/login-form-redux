@@ -44,7 +44,7 @@ const BackArrow = styled(ArrowBackIosNewIcon)`
 
 const Info = styled(InfoIcon)`
   cursor: pointer;
-  color: #ddd;
+  color: ${({color}) => color};
   position: absolute;
   top: 20px;
   right: 8%;
@@ -153,7 +153,7 @@ export default function SignUp() {
   return (
     <SignUpForm>
       <BackArrow onClick={() => navigate('/')}/>
-      <Info onClick={() => navigate('/Info', {state: '/SignUp'})} />
+      <Info onClick={() => navigate('/Info', {state: '/SignUp'})} color={errors.length > 0 ? '#ff5d85' : '#ddd'}/>
       <Title title='Sign Up'/>
       <Input value={username} setValue={setUsername} label='Username' id='1' type="text"/>
       <PasswordSection>

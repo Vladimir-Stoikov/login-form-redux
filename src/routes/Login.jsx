@@ -89,7 +89,7 @@ export default function Login() {
       let { usernameDb, passwordDb } = user;
       if(username.toUpperCase() === usernameDb.toUpperCase() && password === passwordDb) {
    
-      navigate("/Profile");
+      navigate("/Profile", { state: usernameDb });
       } else {
         setError(['Wrong Username or password']);
       }

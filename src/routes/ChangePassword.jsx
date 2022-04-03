@@ -14,6 +14,7 @@ import Button from '../components/Button'
 import Help from '../components/Help'
 import Title from '../components/Title';
 import Errors from '../components/Errors';
+import Wrong from '../components/Wrong';
 
 const ChangePasswordForm = styled.form`
   position: relative;
@@ -42,7 +43,7 @@ const BackArrow = styled(ArrowBackIosNewIcon)`
 
 const Info = styled(InfoIcon)`
   cursor: pointer;
-  color: #ddd;
+  color: ${({color}) => color};
   position: absolute;
   top: 20px;
   right: 8%;
@@ -139,8 +140,10 @@ export default function ChangePassword() {
 
   return (
     <ChangePasswordForm>
+      { state ?
+      <>
       <BackArrow onClick={() => navigate('/Login')}/>
-      <Info onClick={() => navigate('/Info', {state: '/ChangePassword'})}/>
+      <Info onClick={() => navigate('/Info', {state: '/ChangePassword'})} color={error.length > 0 ? '#ff5d85' : '#ddd'}/>
       <Title title='Create new Password' fontSize='1.8rem'/>
       <Input value={password} setValue={setPassword} label='Password' id='1' type={visibility ? 'password' : 'text'}/>
       <PasswordSection>
@@ -153,6 +156,9 @@ export default function ChangePassword() {
       <Help margin="0 0 15px 0" name='Write new password and confirm' hoverOff={true}/>
       {error.length === 0 ? null : <Errors errors={error}/>}
       <Button name='Accept' func={checkPassword} type='submit'/>
+      </> : 
+      <Wrong desciption='Wrong recovery page'/>
+      }
     </ChangePasswordForm>
   )
 }
